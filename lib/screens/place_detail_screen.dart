@@ -30,7 +30,7 @@ class PlaceDetailScreen extends StatelessWidget {
             height: 10.0,
           ),
           Text(
-            'Address',
+            selectedPlace.location.address,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 20.0, color: Colors.grey),
           ),

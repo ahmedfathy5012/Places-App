@@ -20,14 +20,20 @@ class GreatPlaces with ChangeNotifier {
       PlaceLocation pickedLocation) async {
 //    final address = await LocationHelper.getPlaceAddress(
 //        pickedLocation.latitude, pickedLocation.longitude);
-//    final updateLocation = PlaceLocation(
+//       final updateLocation = PlaceLocation(
 //        latitude: pickedLocation.latitude,
 //        longitude: pickedLocation.longitude,
 //        address: address);
+
+      final address = await LocationHelper.getAddress(pickedLocation.latitude,pickedLocation.longitude);
+      final updateLocation = PlaceLocation(
+         latitude: pickedLocation.latitude,
+          longitude: pickedLocation.longitude,
+          address: address);
     final newPlace = Place(
         id: DateTime.now().toString(),
         title: pickedTitle,
-        location: pickedLocation,
+        location: updateLocation,
         image: pickedImage);
     _items.add(newPlace);
     notifyListeners();
@@ -37,7 +43,7 @@ class GreatPlaces with ChangeNotifier {
       'image': newPlace.image.path,
       'loc_lat': newPlace.location.latitude,
       'loc_lng': newPlace.location.longitude,
-      //'address': 'address',
+      'address': newPlace.location.address,
     });
   }
 
@@ -50,6 +56,7 @@ class GreatPlaces with ChangeNotifier {
             location: PlaceLocation(
                 latitude: item['loc_lat'],
                 longitude: item['loc_lng'],
+               address: item['address'],
                // address: 'address'
             ),
             image: File(item['image'])))

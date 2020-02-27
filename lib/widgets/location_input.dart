@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../helpers/location_helper.dart';
 import '../screens/map_screen.dart';
@@ -34,10 +35,11 @@ class _LocationInputState extends State<LocationInput> {
 
     try{
       final locData = await Location().getLocation();
-      print(locData.longitude);
-      print(locData.latitude);
+
       _showPreview(locData.latitude,locData.longitude);
       widget.onSelectPlace(locData.latitude,locData.longitude);
+      print(locData.longitude);
+      print(locData.latitude);
     }catch(error){
       return;
     }
@@ -78,7 +80,7 @@ class _LocationInputState extends State<LocationInput> {
           //      fit: BoxFit.cover,
       //      width: double.infinity,
           //        ),
-          GoogleMap(initialCameraPosition: CameraPosition(target: LatLng(lati, longi),zoom: 16)),
+          GoogleMap(initialCameraPosition: CameraPosition(target: LatLng(lati, longi),zoom: 16),),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,4 +102,5 @@ class _LocationInputState extends State<LocationInput> {
       ],
     );
   }
+
 }
